@@ -3,6 +3,10 @@ onboarding = false
 [ui.toast]
 delivery = "herdr"
 
+# Agent state changes show as toasts only: no ping sound.
+[ui.sound]
+enabled = false
+
 [theme]
 name = "vesper"
 auto_switch = false
