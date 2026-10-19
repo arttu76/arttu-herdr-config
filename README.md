@@ -87,7 +87,10 @@ sidebar calls it a Space) groups tabs, usually one per project or worktree.
 
 ## Keys (prefix is ctrl+b)
 
-Custom bindings, tmux-flavoured:
+Custom bindings, tmux-flavoured. For the paired letters, `prefix+<lowercase>` switches back
+to the previously focused item of that kind (tab, pane, workspace, agent) and does nothing
+else, while `prefix+<Uppercase>` opens a popup that does more than that switch: pick by
+number, create, rename, close, or ask an agent.
 
 | Key | Action |
 |-----|--------|
@@ -95,20 +98,20 @@ Custom bindings, tmux-flavoured:
 | `prefix+%` | split side by side |
 | `prefix+t` | previous tab: toggle between the current and the previously focused tab, across workspaces |
 | `prefix+T` | manage tabs: switch by number across workspaces, `n [name]` new tab, `r<n>` rename (and switch to it), `D<n>` close, enter alone = same toggle (popup) |
-| `prefix+/` | go to: session navigator |
 | `prefix+p` | previous pane: toggle between the current and the previously focused pane, across workspaces |
 | `prefix+P` | manage panes: switch by number across workspaces, `n [name]` new pane, `r<n>` rename (and switch to it), `D<n>` close, enter alone = same toggle (popup) |
 | `prefix+w` | previous workspace: toggle between the current and the previously focused workspace |
 | `prefix+W` | manage workspaces: switch by number, `n [name]` new workspace, `r<n>` rename (and switch to it), `D<n>` close, enter alone = same toggle (popup) |
 | `prefix+a` | previous agent: toggle to the last focused agent (from an agent pane: the previous one) |
 | `prefix+A` | manage agents: ask by number, rename with `r<n>` (and focus it), enter alone = same toggle (popup) |
+| `prefix+d` | toggle the reviewr plugin pane (diff review beside the agent) |
+| `prefix+/` | go to: session navigator |
 
 The lowercase keys use a focus history, not Herdr's list-order cycling: the popups record
 what they focus and the `herdr-focus-track.sh` daemon records every other focus change the
 moment Herdr emits the event.
 Popup lists highlight the current item (`▶`, bright cyan), colour agent status (green =
 working, yellow = blocked) and show close/errors in red; set `NO_COLOR=1` to disable.
-| `prefix+d` | toggle the reviewr plugin pane (diff review beside the agent) |
 
 Useful herdr defaults left as they are: `prefix+c` new tab, `prefix+n` next tab, `prefix+1..9` switch tab, `prefix+h/j/k/l` focus pane, `prefix+x` close pane,
 `prefix+z` zoom, `prefix+[` copy mode, `prefix+b` toggle sidebar, `prefix+?` help.
