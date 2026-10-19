@@ -1,0 +1,128 @@
+onboarding = false
+
+[ui.toast]
+delivery = "herdr"
+
+[theme]
+name = "vesper"
+auto_switch = false
+
+[ui]
+# Status line at the bottom, like tmux pane-border-status bottom.
+# Shows path + git info for the focused pane, refreshed every 2s
+# (script: ~/arttu-herdr-config/herdr-pane-info.sh, herdr strips colours).
+# Then a clock (HH:MM), only on Linux: on macOS the command prints nothing, which hides the
+# entry, so this shared config works on both. The datetime entry type would show on macOS too.
+tab_bar_position = "bottom"
+tab_bar_right = [
+  { type = "command", command = "$HOME/arttu-herdr-config/herdr-pane-info.sh", interval_seconds = 2, timeout_seconds = 2 },
+  { type = "command", command = 'if [ "$(uname)" = Linux ]; then date +%H:%M; fi', interval_seconds = 10, timeout_seconds = 2 },
+]
+pane_borders = "auto"
+pane_outer_borders = false
+pane_gaps = false
+prompt_new_tab_name = false
+
+[keys]
+# tmux-style splits: " = stacked (top/bottom), % = side by side
+split_horizontal = "prefix+\""
+split_vertical = "prefix+percent"
+# Lowercase = back to the previously focused item, uppercase = manage popup (see keys.command
+# below). Herdr's native previous_*/cycle_* keys go by list order, not focus history, so the
+# lowercase keys are shell bindings running "manage-*.sh --toggle" and the native ones are
+# unbound. Creating goes through the popups ("n" or "n name"), so the native new_* keys are
+# unbound too.
+previous_workspace = ""
+new_workspace = ""
+workspace_picker = ""
+rename_workspace = ""
+previous_tab = ""
+new_tab = ""
+rename_tab = ""
+cycle_pane_previous = ""
+rename_pane = ""
+goto = "prefix+slash"
+
+# Reviewer (prefix+d): toggle the reviewr plugin pane (persiyanov.reviewr) that shows
+# agent-written diffs beside the chat.
+[[keys.command]]
+key = "prefix+d"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+
+# Previous agent (prefix+a): toggle focus to the last focused agent (from an agent pane: the
+# previous one). Focus history comes from the popups and herdr-focus-track.sh (via the tab bar).
+[[keys.command]]
+key = "prefix+a"
+type = "shell"
+command = "$HOME/arttu-herdr-config/manage-agents.sh --toggle"
+
+# Manage agents (prefix+A): lists agents, one prompt.
+#   "<n>question" asks agent #n without focusing it, "r<n>name" renames it ("-" clears) and
+#   focuses it, empty input does the same toggle as prefix+a.
+[[keys.command]]
+key = "prefix+shift+a"
+type = "popup"
+command = "$HOME/arttu-herdr-config/manage-agents.sh"
+width = "70%"
+height = "50%"
+
+# Previous workspace (prefix+w): toggle between the current and the previously focused workspace.
+[[keys.command]]
+key = "prefix+w"
+type = "shell"
+command = "$HOME/arttu-herdr-config/manage-workspaces.sh --toggle"
+
+# Manage workspaces (prefix+W): lists workspaces, one prompt.
+#   "<n>" switches to workspace #n, "n [name]" creates one, "r<n>name" renames it (and switches
+#   to it), "D<n>" closes it, empty input is the same toggle as prefix+w.
+[[keys.command]]
+key = "prefix+shift+w"
+type = "popup"
+command = "$HOME/arttu-herdr-config/manage-workspaces.sh"
+width = "70%"
+height = "50%"
+
+# Previous pane (prefix+p): toggle between the current and the previously focused pane, also
+# across workspaces.
+[[keys.command]]
+key = "prefix+p"
+type = "shell"
+command = "$HOME/arttu-herdr-config/manage-panes.sh --toggle"
+
+# Manage panes (prefix+P): lists panes from all workspaces, one prompt.
+#   "<n>" switches to pane #n (also across workspaces), "n [name]" splits the focused pane,
+#   "r<n>name" renames it ("-" clears) and switches to it, "D<n>" closes it, empty input is the
+#   same toggle as prefix+p.
+[[keys.command]]
+key = "prefix+shift+p"
+type = "popup"
+command = "$HOME/arttu-herdr-config/manage-panes.sh"
+width = "80%"
+height = "60%"
+
+# Previous tab (prefix+t): toggle between the current and the previously focused tab, also
+# across workspaces.
+[[keys.command]]
+key = "prefix+t"
+type = "shell"
+command = "$HOME/arttu-herdr-config/manage-tabs.sh --toggle"
+
+# Manage tabs (prefix+T): lists tabs from all workspaces, one prompt.
+#   "<n>" switches to tab #n (also across workspaces), "n [name]" creates a tab in the current
+#   workspace, "r<n>name" renames it (and switches to it), "D<n>" closes it, empty input is the
+#   same toggle as prefix+t. Labels get the tab position as suffix, "name(2)" (prefix+2 goes there).
+[[keys.command]]
+key = "prefix+shift+t"
+type = "popup"
+command = "$HOME/arttu-herdr-config/manage-tabs.sh"
+width = "70%"
+height = "50%"
+
+# Agent sidebar rows: state + space + tab, then agent kind/name + pane name, then the agent's own title.
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", "machine", "workspace", "tab"],
+  ["agent", "pane"],
+  [{ token = "terminal_title_stripped", dim = true }],
+]
