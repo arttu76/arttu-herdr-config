@@ -38,6 +38,7 @@ echo "config: symlinked $CFG_DIR/config.toml -> $SRC/config.toml"
 
 # 2. Claude Code skill (teaches Claude the herdr CLI). Regenerated from the binary so it
 #    matches the installed version; the file is gitignored because it is derived, per machine.
+mkdir -p "$SRC/skills/herdr"   # gitignored, so absent in a fresh clone
 herdr --skill > "$SRC/skills/herdr/SKILL.md"
 rm -rf "$SKILL_DIR/herdr"
 ln -sfn "$SRC/skills/herdr" "$SKILL_DIR/herdr"
