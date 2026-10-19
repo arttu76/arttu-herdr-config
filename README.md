@@ -7,8 +7,9 @@ only holds symlinks, so a script edit is live on this machine at once and on the
 
 ## Install on a new machine
 
+herdr itself must already be installed (`install.sh` exits if it is not).
+
 ```sh
-curl -fsSL https://herdr.dev/install.sh | sh                                 # if herdr is not installed yet
 git clone https://github.com/arttu76/arttu-herdr-config.git ~/arttu-herdr-config
 ~/arttu-herdr-config/install.sh
 ```
