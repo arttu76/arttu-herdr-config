@@ -80,8 +80,9 @@ done <<<"$PLUGINS"
 
 # 5. Validate and apply.
 herdr config check
-if herdr status server >/dev/null 2>&1; then
-  herdr server reload-config >/dev/null && echo "server: config reloaded"
-else
-  echo "server: not running, config applies on next start"
+# `herdr status server` exits 0 even when no server runs, so inspect the reload result instead.
+out=$(herdr server reload-config 2>&1) || true
+if ! grep -q '"error"' <<<"$out"; then echo "server: config reloaded"
+elif grep -q server_not_running <<<"$out"; then echo "server: not running, config applies on next start"
+else echo "$out" >&2; exit 1
 fi
