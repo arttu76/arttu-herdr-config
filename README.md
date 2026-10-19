@@ -113,8 +113,22 @@ moment Herdr emits the event.
 Popup lists highlight the current item (`▶`, bright cyan), colour agent status (green =
 working, yellow = blocked) and show close/errors in red; set `NO_COLOR=1` to disable.
 
-Useful herdr defaults left as they are: `prefix+c` new tab, `prefix+n` next tab, `prefix+1..9` switch tab, `prefix+h/j/k/l` focus pane, `prefix+x` close pane,
-`prefix+z` zoom, `prefix+[` copy mode, `prefix+b` toggle sidebar, `prefix+?` help.
+Useful herdr defaults left as they are:
+
+| Key | Action |
+|-----|--------|
+| `prefix+o` | open the notification target: jump to the pane whose toast is showing, which is the agent that just finished or is waiting for input. The one key that knows about agents; `[ui.toast]` in `config.toml` turns the toasts on |
+| `prefix+r` | resize mode: resize the focused pane with `h/j/k/l` or the arrows, Esc to leave. The mode bar replaces the tab bar while active |
+| `prefix+c` | new tab |
+| `prefix+n` | next tab |
+| `prefix+1..9` | switch to tab 1..9 of the workspace, by position |
+| `prefix+h/j/k/l` | focus pane left/down/up/right |
+| `prefix+x` | close pane |
+| `prefix+z` | zoom the focused pane |
+| `prefix+[` | copy mode |
+| `prefix+b` | toggle the sidebar |
+| `prefix+?` | help: every active binding, `/` filters |
+
 `prefix+prefix` sends a literal ctrl+b to the pane and cannot be rebound.
 
 ## Appearance
